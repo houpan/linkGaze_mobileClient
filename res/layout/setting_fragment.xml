@@ -1,0 +1,132 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
+
+	    <RelativeLayout
+	        android:id="@+id/relativeLayout3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:clipChildren="true"
+	        android:paddingBottom="50px" >
+	       <ImageButton
+	           android:id="@+id/BTN_MESSENGER"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:background="#00000000"
+	           android:src="@drawable/messenger" />
+	       <ImageButton
+	           android:id="@+id/BTN_BANK"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:layout_toRightOf="@id/BTN_MESSENGER"
+	           android:background="#00000000"
+	           android:src="@drawable/bank" />
+	       <ImageButton
+	           android:id="@+id/BTN_WWW"
+	           android:layout_below="@id/BTN_MESSENGER"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:background="#00000000"
+	           android:src="@drawable/www" />
+	       <ImageButton
+	           android:id="@+id/BTN_MAP"
+	           android:layout_below="@id/BTN_BANK"
+	           android:layout_toRightOf="@id/BTN_WWW"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:background="#00000000"
+	           android:src="@drawable/map" />
+	        
+	    </RelativeLayout>
+        
+        <TextView
+            android:id="@+id/TITLE_1"
+            android:layout_below="@id/relativeLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[[顯示在Glass上的通知]]"
+            android:textSize="26px" />
+
+        <CheckBox
+            android:id="@+id/CHBX_PEOPLE_IDIOT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TITLE_1"
+            android:checked="true"
+            android:text="做直銷的朋友" />
+
+        <CheckBox
+            android:id="@+id/CHBX_PEOPLE_HR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/CHBX_PEOPLE_IDIOT"
+            android:checked="true"
+            android:text="秘書" />
+
+        <CheckBox
+            android:id="@+id/CHBX_PEOPLE_FRIEND"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/CHBX_PEOPLE_HR"
+            android:checked="true"
+            android:text="好朋友" />
+
+        <TextView
+            android:id="@+id/TITLE_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/CHBX_PEOPLE_FRIEND"
+            android:paddingTop="10px"
+            android:text="[[顯示在Glass上的隱私資訊]]"
+            android:textSize="26px" />
+
+        <CheckBox
+            android:id="@+id/CHBX_BANK_DATE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TITLE_2"
+            android:text="交易日期" />
+
+        <CheckBox
+            android:id="@+id/CHBX_BANK_SUMMARY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/CHBX_BANK_DATE"
+            android:text="交易摘要" />
+
+        <CheckBox
+            android:id="@+id/CHBX_BANK_WITHDRAW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/CHBX_BANK_SUMMARY"
+            android:checked="true"
+            android:text="提款金額" />
+
+        <CheckBox
+            android:id="@+id/CHBX_BANK_DEPOSIT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/CHBX_BANK_WITHDRAW"
+            android:checked="true"
+            android:text="存款金額" />
+
+        <CheckBox
+            android:id="@+id/CHBX_BANK_BALANCE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/CHBX_BANK_DEPOSIT"
+            android:checked="true"
+            android:text="存簿餘額" />
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_centerInParent="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    	<RelativeLayout
+        android:id="@+id/nameTitle_"
+        android:background="#ff0b0d26"
+        android:paddingBottom="10sp"
+        android:paddingTop="10sp"
+        android:layout_marginBottom="10sp"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+    
+	    <TextView
+	        android:id="@+id/nameText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:text="歷史訊息"
+	        android:textSize="20sp" />
+	    
+    </RelativeLayout>
+    	
+    <RelativeLayout
+        android:id="@+id/LAYOUT_IDIOT"
+        android:layout_below="@id/nameTitle_"
+        android:background ="#ff0b0d26"
+        android:layout_marginBottom="10sp"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+    
+	    <ImageView
+	        android:id="@+id/imageView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:src="@drawable/people_idiot" />
+	
+	    <TextView
+	        android:id="@+id/TEXT_IDIOT"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/imageView1"
+	        android:layout_centerVertical="true"
+	        android:text="[LINUX 跑跑薑餅人] 香甜可口的跑酷遊戲！現在加入開始玩的話，現拿10000金幣呦～快點跟餅乾們一起奔跑吧！" />
+<!-- 
+	    <ImageView
+	        android:id="@+id/imageView2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:src="@drawable/link" /> -->
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/LAYOUT_HR"
+    		android:layout_below="@id/LAYOUT_IDIOT"    
+		android:layout_marginBottom="10sp"
+        android:background ="#ff0b0d26"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+    
+	    <ImageView
+	        android:id="@+id/imageView2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:src="@drawable/people_hr" />
+	
+	    <TextView
+	        android:id="@+id/TEXT_HR"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/imageView2"
+	        android:layout_centerVertical="true"
+	        android:text="全臺超過1,500家，花旗「品味饗宴」最優5折精選美饌。活動期間：即日起~2014/12/31" />
+
+<!-- 	    <ImageView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:src="@drawable/link" /> -->
+    </RelativeLayout>
+    
+    
+    <RelativeLayout
+        android:id="@+id/LAYOUT_FRIEND"
+    		android:layout_below="@id/LAYOUT_HR"
+		android:layout_marginBottom="10sp"    
+        android:background ="#ff0b0d26"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+    
+	    <ImageView
+	        android:id="@+id/imageView3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:src="@drawable/people_friend" />
+	
+	    <TextView
+	        android:id="@+id/TEXT_FRIEND"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/imageView3"
+	        android:layout_centerVertical="true"
+	        android:text="好你早點休息啦~ 掰囉" />
+
+<!-- 	    <ImageView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:src="@drawable/link" /> -->
+    </RelativeLayout>
+    
+</RelativeLayout>

@@ -1,0 +1,129 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_centerInParent="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <!-- descendant那兩個加在parent能夠防止editText自動focus -->
+	<RelativeLayout
+        android:id="@+id/nameTitle"
+        android:layout_below="@id/nameTitle"
+        android:background="#ff0b0d26"
+        android:paddingBottom="10sp"
+        android:paddingTop="10sp"
+        
+		android:descendantFocusability="beforeDescendants"
+		android:focusableInTouchMode="true"
+		
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+    
+	    <TextView
+	        android:id="@+id/TXT_NAME_BAR"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:text="羅詩婷"
+	        android:textSize="20sp" />
+	    
+    </RelativeLayout>
+    
+	<RelativeLayout
+	    android:id="@+id/textEdit"
+	    android:layout_width="match_parent"
+	    android:layout_height="50sp"
+	    android:layout_alignParentBottom="true"	
+	    android:background="#ff0b0d26" >
+
+	    <EditText
+	        android:id="@+id/EDITTXT_MESSAGE_INPUT"
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentLeft="true"
+	        android:ems="8" >
+	    </EditText>
+
+	    <Button
+	        android:id="@+id/BTN_SEND_MESSAGE"
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_alignParentBottom="true"
+	        android:layout_toRightOf="@id/EDITTXT_MESSAGE_INPUT"
+	        android:layout_alignParentRight="true"
+	        android:text="Send" />
+	</RelativeLayout>
+    
+	<ScrollView
+	    android:id="@+id/scrollSection"
+	    android:layout_below="@id/nameTitle"
+	    android:layout_above="@id/textEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    <RelativeLayout
+	       	android:id="@+id/LAYOUT_DIALOGUE_SECTION"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content">
+	
+<!-- 		    <RelativeLayout
+		        android:id="@+id/dialog_1"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content">
+		    
+			    <ImageView
+			        android:id="@+id/imageView3"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentLeft="true"
+			        android:layout_centerVertical="true"
+			        android:src="@drawable/people_friend" />
+			
+			    <TextView
+			        android:id="@+id/textView3"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_toRightOf="@id/imageView3"
+			        android:layout_centerVertical="true"
+			        android:text="好你早點休息啦~ 掰囉" />
+		
+			    <ImageView
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentRight="true"
+			        android:layout_centerVertical="true"
+			        android:src="@drawable/link" />
+		    </RelativeLayout>
+		    
+		    <RelativeLayout
+		        android:id="@+id/dialog_2"
+		        android:layout_below="@id/dialog_1"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content">
+		    
+			    <ImageView
+			        android:id="@+id/imageView3"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        
+			        android:layout_centerVertical="true"
+			        android:layout_alignParentRight="true"
+			        android:src="@drawable/people_self" />
+			
+			    <TextView
+			        android:id="@+id/textView3"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_toLeftOf="@id/imageView3"
+			        android:layout_centerVertical="true"
+			        android:text="好你早點休息啦~ 掰囉" />
+		
+			    <ImageView
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_centerVertical="true"
+			        android:layout_alignParentLeft="true"
+			        android:src="@drawable/link" />
+		    </RelativeLayout> -->
+		</RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
