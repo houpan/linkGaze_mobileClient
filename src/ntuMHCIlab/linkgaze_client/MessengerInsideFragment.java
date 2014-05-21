@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -199,7 +200,7 @@ public class MessengerInsideFragment extends Fragment implements InnerReceiver{
     		messengerDatabase = new MessengerDatabase();
     		fragmentView = inflater.inflate(R.layout.messenger_inside, container, false);
     		_dialogueOnClickListener = new dialogueOnClickListener();
-    		    		
+    		//Button choose_picButton = findViewById(R.id.BTN_SEND_MESSAGE);
     		return fragmentView;  
 		
 		 

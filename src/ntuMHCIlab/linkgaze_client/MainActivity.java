@@ -5,18 +5,28 @@ import ntuMHCIlab.linkgaze_client.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.string;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
@@ -37,7 +47,9 @@ public class MainActivity extends FragmentActivity {
 	private Fragment fragmentMessengerInside_idiot;
 	private Fragment fragmentMessengerInside_HR;
 	private Fragment fragmentMessengerInside_friend;
+	private Fragment fragmentPictureTesting;
 	private Fragment currentFragment;//存現在在前景的Fragment
+	
 	
 	
 	private final WebSocketConnection mConnection = new WebSocketConnection();;
@@ -136,6 +148,7 @@ public class MainActivity extends FragmentActivity {
 		fragmentMessengerInside_idiot = new MessengerInsideFragment();
 		fragmentMessengerInside_HR = new MessengerInsideFragment();
 		fragmentMessengerInside_friend = new MessengerInsideFragment();
+		fragmentPictureTesting = new PictureTesting();
 		
 		
 		//用hide跟show，不要用replace，不然會有解不掉的Null ptr excp
@@ -152,7 +165,10 @@ public class MainActivity extends FragmentActivity {
 		getFragmentManager().beginTransaction().add(R.id.main_layout, fragmentMessengerInside_HR,"fragmentMessengerInside_HR").commit();
 		getFragmentManager().beginTransaction().hide(fragmentMessengerInside_HR).commit();
 		getFragmentManager().beginTransaction().add(R.id.main_layout, fragmentMessengerInside_friend,"fragmentMessengerInside_friend").commit();
-		getFragmentManager().beginTransaction().show(fragmentMessengerInside_friend).commit();
+		//getFragmentManager().beginTransaction().show(fragmentMessengerInside_friend).commit();
+		getFragmentManager().beginTransaction().hide(fragmentMessengerInside_friend).commit();
+		getFragmentManager().beginTransaction().add(R.id.main_layout ,fragmentPictureTesting, "fragmentPictureTesting").commit();
+		getFragmentManager().beginTransaction().show(fragmentPictureTesting).commit();
 		//朋友的初始化等到onStart()才能進行，不然在create結束前系統都是看不到fragment的，在這個情況下一call sendRequestToFragment就爛(null ptr exp)
 		
 		
@@ -162,9 +178,8 @@ public class MainActivity extends FragmentActivity {
 		
 		//initialization: fragment = lock
 //		currentFragment = fragmentLockedUp;
-		currentFragment = fragmentMessengerInside_friend;
-		
-
+		//currentFragment = fragmentMessengerInside_friend;
+		currentFragment = fragmentPictureTesting;
 		
 //        final Button button = (Button) findViewById(R.id.btnSendMsg);
 //        button.setOnClickListener(new View.OnClickListener() {
@@ -207,6 +222,8 @@ public class MainActivity extends FragmentActivity {
 		
 	}
 	
+	
+
 	@Override
 	protected void onStart(){
 		super.onStart();
