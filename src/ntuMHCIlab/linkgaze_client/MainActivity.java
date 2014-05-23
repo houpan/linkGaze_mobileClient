@@ -2,9 +2,11 @@ package ntuMHCIlab.linkgaze_client;
 
 import ntuMHCIlab.linkgaze_client.R;
 
+import org.java_websocket.client.WebSocketClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.R.string;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -30,18 +32,21 @@ import android.widget.Toast;
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
+import de.tavendo.autobahn.WebSocketOptions;
 
 public class MainActivity extends FragmentActivity {
 	private JSONObject userIDJSON;
 	private Handler emitHandler;
 	private Handler layoutHandler;
 	
+	private WebSocketOptions mWebSocketOptions = new WebSocketOptions();
+	
 	private char currentFunction;
 	private int isLockedUp;
 	private String currentDeivce = "mobile";
 	private JSONObject dataForServer;
 	
-	private 	Fragment fragmentLockedUp;
+	private Fragment fragmentLockedUp;
 	private Fragment fragmentSetting;
 	private Fragment fragmentMessenger;
 	private Fragment fragmentMessengerInside_idiot;
@@ -50,7 +55,9 @@ public class MainActivity extends FragmentActivity {
 	private Fragment fragmentPictureTesting;
 	private Fragment currentFragment;//存現在在前景的Fragment
 	
-	
+	private String dataBuffer = "";
+	private int dataOffset = 0;
+	private int dataSize = 0;
 	
 	private final WebSocketConnection mConnection = new WebSocketConnection();;
 	final int ID_FRAG1 = 0;
@@ -74,8 +81,34 @@ public class MainActivity extends FragmentActivity {
 			}else if(jsonObject.getString("data").equals("lookingMobile")){
 				switchToFragment(fragmentName.SETTING);
 			}
+		}else if (jsonObject.getString("action").equals("image-download")) {
+			Log.e("DOWN", "download");
+			sendRequestToFragment("fragmentTesting", jsonObject);
+		}else if (jsonObject.getString("action").equals("image-uploading") && jsonObject.getString("data").equals("come")) {
+			if(dataOffset + 10000 < dataSize && dataBuffer.length() != 0){
+				sendMessageWith("image-uploading", dataBuffer.substring(dataOffset, dataOffset + 10000));
+				dataOffset += 10000;
+			}else {
+				sendMessageWith("image-uploading-done", dataBuffer.substring(dataOffset));
+				dataOffset = 0;
+				dataBuffer = "";
+			}
+		}else if(jsonObject.getString("action").equals("image-download-header")){
+			Log.e("SIZE", ""+dataSize);
+			Log.e("SIZE", "d" + Integer.parseInt(jsonObject.getString("data")));
+			dataSize = Integer.parseInt(jsonObject.getString("data"));
+			sendMessageWith("image-downloading", "come come");
+		}else if(jsonObject.getString("action").equals("image-downloading")){
+			dataBuffer += jsonObject.getString("data");
+			sendMessageWith("image-downloading", "come come");
+		}else if (jsonObject.getString("action").equals("image-download-done")) {
+			dataBuffer += jsonObject.getString("data");
+			JSONObject obj = new JSONObject();
+			obj.put("action", "image-download");
+			obj.put("data", dataBuffer);
+			sendRequestToFragment("fragmentPictureTesting", obj);
+			sendMessageWith("image-done", "fuck");
 		}
-		
 		
 	}
 	
@@ -92,6 +125,7 @@ public class MainActivity extends FragmentActivity {
 		((InnerReceiver) targetFragment).getRequestFromParent(message);
 	}
 
+	
 
 	//test
 	public void showSettinginging(Fragment fragTohide){
@@ -103,6 +137,16 @@ public class MainActivity extends FragmentActivity {
 	public void receivedRequestFromFragment(Fragment senderFragment, JSONObject request) throws JSONException{
 		Log.e("JPC", senderFragment.getClass().getName());
 		Log.e("JPC", senderFragment.getTag());
+		if(senderFragment.getClass().getName().contains("PictureTesting")){
+			Log.e("PIC", "IN");
+			if(request.getString("action").equals("image-upload")){
+				dataBuffer = request.getString("data").toString();
+				dataSize = request.getString("data").length();
+				sendMessageWith("image-upload-header", "" + dataSize);
+			}
+			//sendMessageWith(request.getString("action"), request.getString("data"));
+			//sendMessageWith("image-upload", "data");
+		}
 //		if (request.get("action").equals("changeSetting")){
 //			
 //		}
@@ -140,7 +184,6 @@ public class MainActivity extends FragmentActivity {
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 		getActionBar().hide();
 		setContentView(R.layout.layout_null);
-		
 		
 		fragmentLockedUp = new LockedUpFragment();
 		fragmentSetting = new SettingFragment();
@@ -231,6 +274,7 @@ public class MainActivity extends FragmentActivity {
 			sendRequestToFragment("fragmentMessengerInside_idiot",new JSONObject("{\"action\":\"setUser\", \"friendName\":\"PEOPLE_IDIOT\"}"));
 			sendRequestToFragment("fragmentMessengerInside_HR",new JSONObject("{\"action\":\"setUser\", \"friendName\":\"PEOPLE_HR\"}"));
 			sendRequestToFragment("fragmentMessengerInside_friend",new JSONObject("{\"action\":\"setUser\", \"friendName\":\"PEOPLE_FRIEND\"}"));
+			//sendMessageWith("action", "data");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -264,10 +308,12 @@ public class MainActivity extends FragmentActivity {
 			e1.printStackTrace();
 		}
 		mConnection.sendTextMessage(dataForServer.toString());
+		//mConnection.sendTextMessage(payload);
 	}
 	
 	private void websocketInitialization(){
 		final String wsuri = "ws://140.112.30.33:25566";
+		mWebSocketOptions.setMaxMessagePayloadSize(mWebSocketOptions.getMaxMessagePayloadSize() * 10);
 		try {
 			mConnection.connect(wsuri, new WebSocketHandler() {
 			
@@ -301,7 +347,7 @@ public class MainActivity extends FragmentActivity {
 			public void onClose(int code, String reason) {
 			Log.e("SocketIO", "Connection lost.");
 				}
-			});
+			}, mWebSocketOptions);
 		} catch (WebSocketException e) {
 		
 			Log.e("SocketIO", e.toString());
